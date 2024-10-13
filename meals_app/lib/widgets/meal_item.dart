@@ -3,6 +3,8 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+/// A widget that displays the details of a meal, including its title,
+/// image, duration, complexity, and affordability.
 class MealItem extends StatelessWidget {
   const MealItem({
     super.key,
@@ -13,11 +15,13 @@ class MealItem extends StatelessWidget {
   final Meal meal;
   final void Function(Meal meal) onSelectMeal;
 
+  /// Returns a capitalized string of the meal's complexity.
   String get complexityText {
     return meal.complexity.name[0].toUpperCase() +
         meal.complexity.name.substring(1);
   }
 
+  /// Returns a capitalized string of the meal's affordability.
   String get affordabilityText {
     return meal.affordability.name[0].toUpperCase() +
         meal.affordability.name.substring(1);

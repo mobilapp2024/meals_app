@@ -7,6 +7,7 @@ import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/providers/filters_provider.dart';
 
+/// Initial filters for the meal categories.
 const kInitialFilters = {
   Filter.glutenFree: false,
   Filter.lactoseFree: false,
@@ -14,6 +15,7 @@ const kInitialFilters = {
   Filter.vegan: false,
 };
 
+/// A screen with tab navigation that switches between categories and favorites.
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
@@ -26,19 +28,20 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
 
+  /// Updates the selected tab and refreshes the UI.
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
   }
 
-  void _setScreen(String identifier) async {
+  /// Handles navigation when a screen (like filters) is selected from the drawer.
+  Future<void> _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == 'filters') {
       await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
-          builder: (ctx) => const FiltersScreen(
-          ),
+          builder: (ctx) => const FiltersScreen(),
         ),
       );
     }
@@ -46,18 +49,17 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Watch the filtered meals based on the active filters.
     final availableMeals = ref.watch(filteredMealsProvider);
 
-    Widget activePage = CategoriesScreen(
-      availableMeals: availableMeals,
-    );
+    // Default active page shows the categories.
+    Widget activePage = CategoriesScreen(availableMeals: availableMeals);
     var activePageTitle = 'Categories';
 
+    // If the second tab is selected, show favorite meals.
     if (_selectedPageIndex == 1) {
       final favoriteMeals = ref.watch(favoriteMealsProvider);
-      activePage = MealsScreen(
-        meals: favoriteMeals,
-      );
+      activePage = MealsScreen(meals: favoriteMeals);
       activePageTitle = 'Your Favorites';
     }
 

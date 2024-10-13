@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// A widget representing a side navigation drawer with options for navigating 
+/// to different screens in the app.
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key, required this.onSelectScreen});
 
-  final void Function(String identifier) onSelectScreen;
+  final void Function(String identifier) onSelectScreen; // Callback to navigate between screens.
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
+          // ListTile for navigating to the Meals screen.
           ListTile(
             leading: Icon(
               Icons.restaurant,
@@ -62,6 +65,7 @@ class MainDrawer extends StatelessWidget {
               onSelectScreen('meals');
             },
           ),
+          // ListTile for navigating to the Filters screen.
           ListTile(
             leading: Icon(
               Icons.settings,
