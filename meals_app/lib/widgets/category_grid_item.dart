@@ -36,7 +36,7 @@ class CategoryGridItem extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 7, 
+              flex: 3, 
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
@@ -48,7 +48,7 @@ class CategoryGridItem extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 10, 
+              flex: 2, 
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(16),
