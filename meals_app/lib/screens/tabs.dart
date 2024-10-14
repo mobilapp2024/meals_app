@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/filters.dart';
@@ -28,14 +29,12 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
 
-  /// Updates the selected tab and refreshes the UI.
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
   }
 
-  /// Handles navigation when a screen (like filters) is selected from the drawer.
   Future<void> _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == 'filters') {
@@ -49,16 +48,14 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Watch the filtered meals based on the active filters.
     final availableMeals = ref.watch(filteredMealsProvider);
+    final favoriteMeals = ref.watch(favoriteMealsProvider); // Correctly watch favorite meals
 
-    // Default active page shows the categories.
     Widget activePage = CategoriesScreen(availableMeals: availableMeals);
     var activePageTitle = 'Categories';
 
     // If the second tab is selected, show favorite meals.
     if (_selectedPageIndex == 1) {
-      final favoriteMeals = ref.watch(favoriteMealsProvider);
       activePage = MealsScreen(meals: favoriteMeals);
       activePageTitle = 'Your Favorites';
     }
@@ -88,3 +85,5 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     );
   }
 }
+
+

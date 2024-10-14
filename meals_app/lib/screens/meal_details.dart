@@ -1,13 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 
 /// A screen that displays the details of a meal, including ingredients and steps.
-/// 
-/// This screen also allows users to mark or unmark the meal as a favorite.
+///
 class MealDetailsScreen extends ConsumerWidget {
-  const MealDetailsScreen({
+  MealDetailsScreen({
     super.key,
     required this.meal,
   });
@@ -29,8 +30,9 @@ class MealDetailsScreen extends ConsumerWidget {
         actions: [
           // Favorite button in the AppBar to toggle favorite status.
           IconButton(
-            onPressed: () {
-              final wasAdded = ref
+            onPressed: () async {
+              // Make this async
+              final wasAdded = await ref
                   .read(favoriteMealsProvider.notifier)
                   .toggleMealFavoriteStatus(meal);
               ScaffoldMessenger.of(context).clearSnackBars();

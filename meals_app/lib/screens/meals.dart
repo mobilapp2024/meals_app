@@ -11,13 +11,9 @@ class MealsScreen extends StatelessWidget {
     required this.meals,
   });
 
-  /// Optional title for the screen. If no title is provided, the screen does not display an AppBar.
   final String? title;
-
-  /// The list of meals to be displayed.
   final List<Meal> meals;
 
-  /// Navigates to the details screen for the selected meal.
   void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -28,13 +24,12 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Default content shown when no meals are available.
     Widget content = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'uh oh . . . nothing here!',
+            'Uh oh... nothing here!',
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
@@ -50,7 +45,6 @@ class MealsScreen extends StatelessWidget {
       ),
     );
 
-    // If there are meals available, display them in a list.
     if (meals.isNotEmpty) {
       content = ListView.builder(
         itemCount: meals.length,
@@ -63,15 +57,9 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
-    // If no title is provided, return only the content.
-    if (title == null) {
-      return content;
-    }
-
-    // If a title is provided, return a Scaffold with an AppBar.
     return Scaffold(
       appBar: AppBar(
-        title: Text(title!),
+        title: Text(title ?? 'Meals'),
       ),
       body: content,
     );

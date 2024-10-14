@@ -428,3 +428,7 @@ const dummyMeals = [
     isLactoseFree: true,
   ),
 ];
+
+Meal findMealById(String id) {
+  return dummyMeals.firstWhere((meal) => meal.id == id);
+}
